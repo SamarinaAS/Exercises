@@ -1,5 +1,5 @@
  #include <iostream>
-
+#include <vector>
 class Node{
     Node *next;
     int data;
@@ -39,8 +39,20 @@ class Node{
                 newHead = newHead->next;
             }
         }
-
     }
+    
+    static int sizeList(Node *head){
+        int i = 0;
+        for (i; head->next!=nullptr; i++){
+        head = head->next;
+        }
+        i++;
+        return i;
+    }
+    //удаляет повторы
+    //static void deleteRepeats(Node* &head){
+    //    std::vector<int> v1(si);
+    //}
     
     void print(){
         std::cout<<"Односвязный список: "<<std::endl;
@@ -65,6 +77,7 @@ int main(){
     head->append(1);
     head->append(1);
     head->print();
+    std::cout<<"Длина списка: "<<Node::sizeList(head)<<std::endl;
     int i = 1;
     Node::deleteNode(head, i);
     std::cout<<"Удаляем узел "<<i<<std::endl;
