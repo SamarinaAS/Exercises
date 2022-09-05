@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string>
+#include <iostream>
 class Date
 {
 private:
@@ -24,16 +25,17 @@ private:
 public:
     Date(unsigned day, unsigned month, unsigned year);
     static bool isYearLeap(unsigned year);
-    void setYear(unsigned year);
+    void setYear(unsigned year) ;
     void setMonth(unsigned month);
     void setDay(unsigned day);
-    unsigned getYear();
-    unsigned getMonth();
-    unsigned getDay();    
+    unsigned getYear() const;
+    unsigned getMonth() const;
+    unsigned getDay() const;    
     void addYear(unsigned n);
     void addMonth(unsigned n);
     // void addDay(unsigned n);
-    void printDate();
+    void printDate() const;
+    
 };
 
 Date::Date(unsigned day, unsigned month, unsigned year)
@@ -62,15 +64,15 @@ void Date::setMonth(unsigned month){
     this->month = month;
 }
 
-unsigned Date::getDay(){
+unsigned Date::getDay() const {
     return day;
 }
 
-unsigned Date::getYear(){
+unsigned Date::getYear() const{
     return year;
 }
 
-unsigned Date::getMonth(){
+unsigned Date::getMonth() const{
     return month;
 }
 
@@ -115,7 +117,7 @@ void Date::addMonth(unsigned n)
     }
 };
 
-void Date::printDate(){
+void Date::printDate() const{
     std::string strDay = std::to_string(day);
     std::string strMohth = std::to_string(month);
     std::string strYear = std::to_string(year);
@@ -138,6 +140,24 @@ void Date::printDate(){
 //     year+=(day+n)/
 // };
 
+std::ostream& operator<<(std::ostream &os, const Date& date) {
+    std::string strDay = std::to_string(date.getDay());
+    std::string strMohth = std::to_string(date.getMonth());
+    std::string strYear = std::to_string(date.getYear());
+    if (strDay.length()==1){
+        strDay="0" + strDay;
+    }
+    if (strMohth.length()==1){
+        strMohth="0" + strMohth;
+    }
+    if (strYear.length()<4){
+        std::string zeros(4-strYear.length(), '0');
+        strYear= zeros+ strYear;
+    }
+    return os << 1 << "." << strMohth
+        << "." << strYear;
+}
+
 int main()
 {
     Date *my = new Date(29, 2, 2024);
@@ -150,6 +170,8 @@ int main()
     my1->setYear(2019);
     printf("day: %u, month: %u, year: %u\n",my1->getDay(), my1->getMonth(), my1->getYear());
     my1->printDate();
+    std::cout<<std::endl;
+    std::cout<<my1<<std::endl;
     try{
         //Date *my2 = new Date(32, 3, 2024);
         my1->setMonth(13);
