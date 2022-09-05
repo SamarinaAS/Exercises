@@ -23,6 +23,12 @@ private:
 public:
     Date(unsigned day, unsigned month, unsigned year);
     static bool isYearLeap(unsigned year);
+    void setYear(unsigned year);
+    void setMonth(unsigned month);
+    void setDay(unsigned day);
+    unsigned getYear();
+    unsigned getMonth();
+    unsigned getDay();    
     void addYear(unsigned n);
     void addMonth(unsigned n);
     // void addDay(unsigned n);
@@ -43,6 +49,34 @@ void Date::isDateCorrect(unsigned day, unsigned month, unsigned year)
         throw "Incorrect date";
     }
 }
+
+void Date::setYear(unsigned year){
+    isDateCorrect(day, month, year);
+    this->year = year;
+}
+
+void Date::setMonth(unsigned month){
+    isDateCorrect(day, month, year);
+    this->month = month;
+}
+
+unsigned Date::getDay(){
+    return day;
+}
+
+unsigned Date::getYear(){
+    return year;
+}
+
+unsigned Date::getMonth(){
+    return month;
+}
+
+void Date::setDay(unsigned day){
+    isDateCorrect(day, month, year);
+    this->day = day;
+}
+
 bool Date::isYearLeap(unsigned year)
 {
     if ((year) % 400 == 0 || year % 4 == 0 && year % 100 != 0)
@@ -92,8 +126,13 @@ int main()
     Date *my1 = new Date(31, 3, 2024);
     my1->addMonth(1);
     my1->addMonth(10);
+    my1->setDay(20);
+    my1->setMonth(8);
+    my1->setYear(2019);
+    std::cout<<"day: "<<my1->getDay()<<", month: "<<my1->getMonth()<<", year: "<<my1->getYear()<<std::endl;
     try{
-        Date *my2 = new Date(32, 3, 2024);
+        //Date *my2 = new Date(32, 3, 2024);
+        my1->setMonth(13);
     }catch (...){
         std::cout<<"Entered incorrect date"<<std::endl;
     }
