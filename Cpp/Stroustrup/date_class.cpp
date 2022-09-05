@@ -1,4 +1,5 @@
-#include <iostream>
+#include <stdio.h>
+#include <string>
 class Date
 {
 private:
@@ -32,6 +33,7 @@ public:
     void addYear(unsigned n);
     void addMonth(unsigned n);
     // void addDay(unsigned n);
+    void printDate();
 };
 
 Date::Date(unsigned day, unsigned month, unsigned year)
@@ -45,7 +47,7 @@ void Date::isDateCorrect(unsigned day, unsigned month, unsigned year)
 {
     if (month == months::feb && (day == 29 && !isYearLeap(year) || day > 29) 
     || (month == months::aip || month == months::jun || month == months::sep || month == months::nov) && day == 31
-    || !(month >= months::jan && month <= months::dec) || day == 0 || day > 31 || year == 0){
+    || !(month >= months::jan && month <= months::dec) || day == 0 || day > 31 || year == 0 || year > 9999){
         throw "Incorrect date";
     }
 }
@@ -112,6 +114,23 @@ void Date::addMonth(unsigned n)
         }
     }
 };
+
+void Date::printDate(){
+    std::string strDay = std::to_string(day);
+    std::string strMohth = std::to_string(month);
+    std::string strYear = std::to_string(year);
+    if (strDay.length()==1){
+        strDay="0" + strDay;
+    }
+    if (strMohth.length()==1){
+        strMohth="0" + strMohth;
+    }
+    if (strYear.length()<4){
+        std::string zeros(4-strYear.length(), '0');
+        strYear= zeros+ strYear;
+    }
+    printf("%s.%s.%s", strDay.c_str(), strMohth.c_str(), strYear.c_str());
+}
 // void Date::addDay(unsigned n){
 //     while(){
 
@@ -129,12 +148,13 @@ int main()
     my1->setDay(20);
     my1->setMonth(8);
     my1->setYear(2019);
-    std::cout<<"day: "<<my1->getDay()<<", month: "<<my1->getMonth()<<", year: "<<my1->getYear()<<std::endl;
+    printf("day: %u, month: %u, year: %u\n",my1->getDay(), my1->getMonth(), my1->getYear());
+    my1->printDate();
     try{
         //Date *my2 = new Date(32, 3, 2024);
         my1->setMonth(13);
     }catch (...){
-        std::cout<<"Entered incorrect date"<<std::endl;
+        printf("\nEntered incorrect date\n");
     }
     return 0;
 }
