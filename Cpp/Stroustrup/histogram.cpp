@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <algorithm>
 #include <map>
+#include <iostream>
+
 class Histogram{
     private:
     std::vector <int> data;
@@ -10,7 +12,7 @@ class Histogram{
     //std::vector <int vector <int>> tempIntervals;
     public:
     Histogram(std::vector <int> data, std::vector <int> intervals);
-    void printHistogram();
+    void printHistogram () const;
 };
 
 Histogram::Histogram(std::vector <int> data, std::vector <int> intervals){
@@ -36,14 +38,18 @@ Histogram::Histogram(std::vector <int> data, std::vector <int> intervals){
     this->intervals = intervals;
 }
 
-// printHistogram(){
-//     for (int i=0; i < intervals.size; )
-// }
+void Histogram::printHistogram() const{
+    std::map <std::string, int> :: const_iterator it = histogramMap.begin();
+    for (; it != histogramMap.end(); it++) {
+        std::cout<<it->first<<": "<<it->second<<std::endl;
+    }
+ }
 
 int main(){
     std::vector <int> data = {1, 2, 3, 4, 5, 6};
     std::vector <int> intervals = {1, 3, 6};
     Histogram* hist = new Histogram(data, intervals);
+    hist->printHistogram();
     int i =0;
     return 0;
 }
