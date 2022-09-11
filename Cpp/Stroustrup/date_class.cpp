@@ -154,7 +154,7 @@ std::ostream& operator<<(std::ostream &os, const Date& date) {
         std::string zeros(4-strYear.length(), '0');
         strYear= zeros+ strYear;
     }
-    return os << 1 << "." << strMohth
+    return os << strDay << "." << strMohth
         << "." << strYear;
 }
 
@@ -171,7 +171,7 @@ int main()
     printf("day: %u, month: %u, year: %u\n",my1->getDay(), my1->getMonth(), my1->getYear());
     my1->printDate();
     std::cout<<std::endl;
-    std::cout<<my1<<std::endl;
+    std::cout<<*my1<<std::endl;
     try{
         //Date *my2 = new Date(32, 3, 2024);
         my1->setMonth(13);
